@@ -17,7 +17,7 @@ namespace CRUDUsingMVC.Controllers
         public ActionResult GetAllEmpDetails()
         {
           
-            EmpRepository EmpRepo = new EmpRepository();
+            studentRepository EmpRepo = new studentRepository();
             ModelState.Clear();
             return View(EmpRepo.GetAllEmployees());
         }
@@ -37,7 +37,7 @@ namespace CRUDUsingMVC.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    EmpRepository EmpRepo = new EmpRepository();
+                    studentRepository EmpRepo = new studentRepository();
 
                     if (EmpRepo.AddEmployee(Emp))
                     {
@@ -56,11 +56,11 @@ namespace CRUDUsingMVC.Controllers
         // GET: Employee/EditEmpDetails/5
         public ActionResult EditEmpDetails(int id)
         {
-            EmpRepository EmpRepo = new EmpRepository();
+            studentRepository stuRepo = new studentRepository();
 
           
 
-            return View(EmpRepo.GetAllEmployees().Find(Emp => Emp.Empid == id));
+            return View(stuRepo.GetAllEmployees().Find(student => student.StudentId == id));
 
         }
 
@@ -71,7 +71,7 @@ namespace CRUDUsingMVC.Controllers
         {
             try
             {
-                    EmpRepository EmpRepo = new EmpRepository();
+                    studentRepository EmpRepo = new studentRepository();
                   
                     EmpRepo.UpdateEmployee(obj);
                
@@ -91,7 +91,7 @@ namespace CRUDUsingMVC.Controllers
         {
             try
             {
-                EmpRepository EmpRepo = new EmpRepository();
+                studentRepository EmpRepo = new studentRepository();
                 if (EmpRepo.DeleteEmployee(id))
                 {
                     ViewBag.AlertMsg = "Employee details deleted successfully";
