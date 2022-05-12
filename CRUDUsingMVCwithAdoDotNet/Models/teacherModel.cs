@@ -6,11 +6,11 @@ using System.Web;
 
 namespace CRUDUsingMVC.Models
 {
-    public class StudentModel
+    public class TeacherModel
     {
         [Display(Name ="Id")]
       
-        public int StudentId { get; set; }
+        public int TeacherId { get; set; }
         [Required(ErrorMessage ="Name is required.")]
      
         public string Name { get; set; }

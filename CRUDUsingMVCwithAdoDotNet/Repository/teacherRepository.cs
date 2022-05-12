@@ -8,7 +8,7 @@ using System.Web;
 using CRUDUsingMVC.Models;
 namespace CRUDUsingMVC.Repository
 {
-    public class StudentRepository
+    public class TeacherRepository
     {
         private SqlConnection con;
         private void connection()
@@ -18,7 +18,8 @@ namespace CRUDUsingMVC.Repository
 
         }
 
-        public bool AddStudent(StudentModel obj)
+
+        public bool AddTeacher(TeacherModel obj)
         {
 
             connection();
@@ -34,27 +35,22 @@ namespace CRUDUsingMVC.Repository
             con.Close();
             if (i >= 1)
             {
-
                 return true;
-
             }
             else
             {
-
                 return false;
             }
-
-
         }
 
-        public List<studentModel> GetAllStudents()
+        public List<TeacherModel> GetAllTeacher()
         {
             connection();
-            List<studentModel> stuList =new List<studentModel>();
+            List<TeacherModel> stuList =new List<TeacherModel>();
            
 
-            SqlCommand com = new SqlCommand("GetEmployees", con);
-            com.CommandType = CommandType.StoredProcedure;
+            SqlCommand com = new SqlCommand("select * from teacher", con);
+            com.CommandType = CommandType.Text;
             SqlDataAdapter da = new SqlDataAdapter(com);
             DataTable dt = new DataTable();
           
@@ -63,30 +59,20 @@ namespace CRUDUsingMVC.Repository
             con.Close();
             foreach (DataRow dr in dt.Rows)
             {
-
                 stuList.Add(
-
-                    new studentModel {
-
-                        StudentId = Convert.ToInt32(dr["Id"]),
+                    new TeacherModel {
+                        TeacherId = Convert.ToInt32(dr["Id"]),
                         Name =Convert.ToString( dr["Name"]),
                         Email = Convert.ToString( dr["Email"]),
                         Address = Convert.ToString(dr["Address"])
-
-                    }
-                    
-                    
+                    }                
                     );
-
-
             }
 
             return stuList;
-
-
         }
 
-        public bool UpdateEmployee(studentModel obj)
+        public bool UpdateTeacher(TeacherModel obj)
         {
 
             connection();

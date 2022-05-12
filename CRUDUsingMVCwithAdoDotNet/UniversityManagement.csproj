@@ -118,8 +118,8 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Employee\AddEmployee.cshtml" />
-    <Content Include="Views\Employee\GetAllEmpDetails.cshtml" />
+    <Content Include="Views\Student\AddEmployee.cshtml" />
+    <Content Include="Views\Student\GetAllEmpDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -127,9 +127,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ClassModel.cs" />
+    <Compile Include="Models\TeacherModel.cs" />
     <Compile Include="Models\studentModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\studentRepository.cs" />
+    <Compile Include="Repository\TeacherRepository.cs" />
+    <Compile Include="Repository\ClassRepository.cs" />
+    <Compile Include="Repository\StudentRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -139,7 +143,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Views\Employee\EditEmpDetails.cshtml" />
+    <Content Include="Views\Student\EditEmpDetails.cshtml" />
+    <Content Include="Views\Class\AddEmployee.cshtml" />
+    <Content Include="Views\Class\EditEmpDetails.cshtml" />
+    <Content Include="Views\Class\GetAllEmpDetails.cshtml" />
+    <Content Include="Views\Teacher\AddEmployee.cshtml" />
+    <Content Include="Views\Teacher\EditEmpDetails.cshtml" />
+    <Content Include="Views\Teacher\GetAllEmpDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

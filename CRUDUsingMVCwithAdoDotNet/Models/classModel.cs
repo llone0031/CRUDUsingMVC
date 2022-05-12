@@ -6,18 +6,17 @@ using System.Web;
 
 namespace CRUDUsingMVC.Models
 {
-    public class StudentModel
+    public class ClassModel
     {
         [Display(Name ="Id")]
       
-        public int StudentId { get; set; }
+        public int ClassId { get; set; }
         [Required(ErrorMessage ="Name is required.")]
      
         public string Name { get; set; }
-        [Required(ErrorMessage = "Email is required.")]
-        public string Email { get; set; }
-        [Required(ErrorMessage = "Address is required.")]
-        public string  Address { get; set; }
+        public string startTime { get; set; }
+        public string endTime { get; set; }
+        public string  location { get; set; }
        
     }
 }

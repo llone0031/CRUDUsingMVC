@@ -8,7 +8,7 @@ using System.Web;
 using CRUDUsingMVC.Models;
 namespace CRUDUsingMVC.Repository
 {
-    public class StudentRepository
+    public class ClassRepository
     {
         private SqlConnection con;
         private void connection()
@@ -18,17 +18,16 @@ namespace CRUDUsingMVC.Repository
 
         }
 
-        public bool AddStudent(StudentModel obj)
+        public bool AddClass(ClassModel obj)
         {
 
             connection();
-            SqlCommand com = new SqlCommand($"insert into student values ({obj.Name}, {obj.Email}, {obj.Address})", con);
+            SqlCommand com = new SqlCommand($"insert into class values ({obj.Name}, {obj.startTime}, {obj.endTime}, {obj.location})", con);
             com.CommandType = CommandType.Text;
-            //com.CommandType = CommandType.StoredProcedure;
             //com.Parameters.AddWithValue("@Name", obj.Name);
             //com.Parameters.AddWithValue("@City", obj.Email);
             //com.Parameters.AddWithValue("@Address", obj.Address);
-
+          
             con.Open();
             int i = com.ExecuteNonQuery();
             con.Close();
