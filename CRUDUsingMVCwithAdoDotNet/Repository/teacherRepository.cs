@@ -46,7 +46,7 @@ namespace CRUDUsingMVC.Repository
         public List<TeacherModel> GetAllTeacher()
         {
             connection();
-            List<TeacherModel> stuList =new List<TeacherModel>();
+            List<TeacherModel> list =new List<TeacherModel>();
            
 
             SqlCommand com = new SqlCommand("select * from teacher", con);
@@ -59,7 +59,7 @@ namespace CRUDUsingMVC.Repository
             con.Close();
             foreach (DataRow dr in dt.Rows)
             {
-                stuList.Add(
+                list.Add(
                     new TeacherModel {
                         TeacherId = Convert.ToInt32(dr["Id"]),
                         Name =Convert.ToString( dr["Name"]),
@@ -69,16 +69,16 @@ namespace CRUDUsingMVC.Repository
                     );
             }
 
-            return stuList;
+            return list;
         }
 
         public bool UpdateTeacher(TeacherModel obj)
         {
 
             connection();
-            SqlCommand com = new SqlCommand("UpdateEmpDetails", con);
+            SqlCommand com = new SqlCommand($"Update teacher set name = {obj.Name}, email = {obj.Email}, address = {obj.Address} where id= {obj.TeacherId}", con);
            
-            com.CommandType = CommandType.StoredProcedure;
+            com.CommandType = CommandType.Text;
             //com.Parameters.AddWithValue("@StudentId", obj.Empid);
             //com.Parameters.AddWithValue("@Name", obj.Name);
             //com.Parameters.AddWithValue("@City", obj.City);
@@ -87,27 +87,22 @@ namespace CRUDUsingMVC.Repository
             int i = com.ExecuteNonQuery();
             con.Close();
             if (i >= 1)
-            {
-                
+            {       
                 return true;
-
             }
             else
             {
-
                 return false;
             }
 
 
         }
-        public bool DeleteStudent(int Id)
+        public bool DeleteTeacher(int Id)
         {
 
             connection();
-            SqlCommand com = new SqlCommand("DeleteEmpById", con);
-
-            com.CommandType = CommandType.StoredProcedure;
-            com.Parameters.AddWithValue("@EmpId", Id);
+            SqlCommand com = new SqlCommand($"Delete from teacher where id={Id}", con);
+            com.CommandType = CommandType.Text;
            
             con.Open();
             int i = com.ExecuteNonQuery();

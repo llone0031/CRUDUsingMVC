@@ -47,41 +47,34 @@ namespace CRUDUsingMVC.Repository
 
         }
 
-        public List<studentModel> GetAllStudents()
+        public List<StudentModel> GetAllStudents()
         {
             connection();
-            List<studentModel> stuList =new List<studentModel>();
-           
+            List<StudentModel> list =new List<StudentModel>();
 
-            SqlCommand com = new SqlCommand("GetEmployees", con);
-            com.CommandType = CommandType.StoredProcedure;
+
+            SqlCommand com = new SqlCommand("select * from student", con);
+            com.CommandType = CommandType.Text;
             SqlDataAdapter da = new SqlDataAdapter(com);
             DataTable dt = new DataTable();
-          
+
             con.Open();
             da.Fill(dt);
             con.Close();
             foreach (DataRow dr in dt.Rows)
             {
-
-                stuList.Add(
-
-                    new studentModel {
-
+                list.Add(
+                    new StudentModel
+                    {
                         StudentId = Convert.ToInt32(dr["Id"]),
-                        Name =Convert.ToString( dr["Name"]),
-                        Email = Convert.ToString( dr["Email"]),
+                        Name = Convert.ToString(dr["Name"]),
+                        Email = Convert.ToString(dr["Email"]),
                         Address = Convert.ToString(dr["Address"])
-
                     }
-                    
-                    
                     );
-
-
             }
 
-            return stuList;
+            return list;
 
 
         }
