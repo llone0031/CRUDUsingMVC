@@ -5,8 +5,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
-using CRUDUsingMVC.Models;
-namespace CRUDUsingMVC.Repository
+using University.Models;
+namespace University.Repository
 {
     public class StudentRepository
     {
@@ -79,12 +79,12 @@ namespace CRUDUsingMVC.Repository
 
         }
 
-        public bool UpdateEmployee(studentModel obj)
+        public bool UpdateEmployee(StudentModel obj)
         {
 
             connection();
-            SqlCommand com = new SqlCommand("UpdateEmpDetails", con);
-           
+            SqlCommand com = new SqlCommand($"Update student set name = {obj.Name}, email = {obj.Email}, address = {obj.Address} where id= {obj.StudentId}", con);
+
             com.CommandType = CommandType.StoredProcedure;
             //com.Parameters.AddWithValue("@StudentId", obj.Empid);
             //com.Parameters.AddWithValue("@Name", obj.Name);
@@ -111,10 +111,9 @@ namespace CRUDUsingMVC.Repository
         {
 
             connection();
-            SqlCommand com = new SqlCommand("DeleteEmpById", con);
+            SqlCommand com = new SqlCommand($"Delete from student where id={Id}", con);
 
-            com.CommandType = CommandType.StoredProcedure;
-            com.Parameters.AddWithValue("@EmpId", Id);
+            com.CommandType = CommandType.Text;
            
             con.Open();
             int i = com.ExecuteNonQuery();

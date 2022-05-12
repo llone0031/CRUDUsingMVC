@@ -4,19 +4,20 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace CRUDUsingMVC.Models
+namespace University.Models
 {
-    public class ClassModel
+    public class CourseModel
     {
         [Display(Name ="Id")]
       
-        public int ClassId { get; set; }
+        public int CourseId { get; set; }
+        public int CourseNumber { get; set; }
         [Required(ErrorMessage ="Name is required.")]
      
         public string Name { get; set; }
-        public string startTime { get; set; }
-        public string endTime { get; set; }
-        public string  location { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+        public string  Location { get; set; }
        
     }
 }

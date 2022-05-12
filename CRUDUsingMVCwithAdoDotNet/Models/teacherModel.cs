@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace CRUDUsingMVC.Models
+namespace University.Models
 {
     public class TeacherModel
     {

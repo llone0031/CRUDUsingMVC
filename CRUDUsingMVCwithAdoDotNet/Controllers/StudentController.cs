@@ -3,45 +3,45 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using CRUDUsingMVC.Models;
-using CRUDUsingMVC.Repository;
-namespace CRUDUsingMVC.Controllers
+using University.Models;
+using University.Repository;
+namespace University.Controllers
 {
    
-    public class EmployeeController : Controller
+    public class StudentController : Controller
     {
       
        
         // GET: Employee/GetAllEmpDetails
       
-        public ActionResult GetAllEmpDetails()
+        public ActionResult GetAllStudentDetails()
         {
           
-            studentRepository EmpRepo = new studentRepository();
+            StudentRepository EmpRepo = new StudentRepository();
             ModelState.Clear();
-            return View(EmpRepo.GetAllEmployees());
+            return View(EmpRepo.GetAllStudents());
         }
 
 
         // GET: Employee/AddEmployee
-        public ActionResult AddEmployee()
+        public ActionResult AddStudent()
         {
             return View();
         }
 
         // POST: Employee/AddEmployee
         [HttpPost]
-        public ActionResult AddEmployee(studentModel Emp)
+        public ActionResult AddStudent(StudentModel Emp)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    studentRepository EmpRepo = new studentRepository();
+                    StudentRepository EmpRepo = new StudentRepository();
 
-                    if (EmpRepo.AddEmployee(Emp))
+                    if (EmpRepo.AddStudent(Emp))
                     {
-                        ViewBag.Message = "Employee details added successfully";
+                        ViewBag.Message = "Student details added successfully";
                     }
                 }
               
@@ -54,31 +54,31 @@ namespace CRUDUsingMVC.Controllers
         }
 
         // GET: Employee/EditEmpDetails/5
-        public ActionResult EditEmpDetails(int id)
+        public ActionResult EditStudentDetails(int id)
         {
-            studentRepository stuRepo = new studentRepository();
+            StudentRepository stuRepo = new StudentRepository();
 
           
 
-            return View(stuRepo.GetAllEmployees().Find(student => student.StudentId == id));
+            return View(stuRepo.GetAllStudents().Find(student => student.StudentId == id));
 
         }
 
         // POST: Employee/EditEmpDetails/5
         [HttpPost]
       
-        public ActionResult EditEmpDetails(int id,studentModel obj)
+        public ActionResult EditStudentDetails(int id,StudentModel obj)
         {
             try
             {
-                    studentRepository EmpRepo = new studentRepository();
+                    StudentRepository EmpRepo = new StudentRepository();
                   
                     EmpRepo.UpdateEmployee(obj);
                
 
 
 
-                return RedirectToAction("GetAllEmpDetails");
+                return RedirectToAction("GetAllStudentDetails");
             }
             catch
             {
@@ -91,13 +91,13 @@ namespace CRUDUsingMVC.Controllers
         {
             try
             {
-                studentRepository EmpRepo = new studentRepository();
-                if (EmpRepo.DeleteEmployee(id))
+                StudentRepository EmpRepo = new StudentRepository();
+                if (EmpRepo.DeleteStudent(id))
                 {
-                    ViewBag.AlertMsg = "Employee details deleted successfully";
+                    ViewBag.AlertMsg = "Student details deleted successfully";
 
                 }
-                return RedirectToAction("GetAllEmpDetails");
+                return RedirectToAction("GetAllStudentDetails");
 
             }
             catch

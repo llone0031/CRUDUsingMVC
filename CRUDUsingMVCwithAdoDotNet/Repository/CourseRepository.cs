@@ -5,10 +5,10 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
-using CRUDUsingMVC.Models;
-namespace CRUDUsingMVC.Repository
+using University.Models;
+namespace University.Repository
 {
-    public class ClassRepository
+    public class CourseRepository
     {
         private SqlConnection con;
         private void connection()
@@ -18,11 +18,11 @@ namespace CRUDUsingMVC.Repository
 
         }
 
-        public bool AddClass(ClassModel obj)
+        public bool AddCourse(CourseModel obj)
         {
 
             connection();
-            SqlCommand com = new SqlCommand($"insert into class values ({obj.Name}, {obj.startTime}, {obj.endTime}, {obj.location})", con);
+            SqlCommand com = new SqlCommand($"insert into course values ({obj.Name}, {obj.StartTime}, {obj.EndTime}, {obj.Location})", con);
             com.CommandType = CommandType.Text;
             //com.Parameters.AddWithValue("@Name", obj.Name);
             //com.Parameters.AddWithValue("@City", obj.Email);
@@ -46,56 +46,44 @@ namespace CRUDUsingMVC.Repository
 
         }
 
-        public List<studentModel> GetAllStudents()
+        public List<CourseModel> GetAllCourses()
         {
             connection();
-            List<studentModel> stuList =new List<studentModel>();
-           
+            List<CourseModel> list = new List<CourseModel>();
 
-            SqlCommand com = new SqlCommand("GetEmployees", con);
-            com.CommandType = CommandType.StoredProcedure;
+
+            SqlCommand com = new SqlCommand("select * from course", con);
+            com.CommandType = CommandType.Text;
             SqlDataAdapter da = new SqlDataAdapter(com);
             DataTable dt = new DataTable();
-          
+
             con.Open();
             da.Fill(dt);
             con.Close();
             foreach (DataRow dr in dt.Rows)
             {
-
-                stuList.Add(
-
-                    new studentModel {
-
-                        StudentId = Convert.ToInt32(dr["Id"]),
-                        Name =Convert.ToString( dr["Name"]),
-                        Email = Convert.ToString( dr["Email"]),
-                        Address = Convert.ToString(dr["Address"])
-
+                list.Add(
+                    new CourseModel
+                    {
+                        CourseId = Convert.ToInt32(dr["Id"]),
+                        Name = Convert.ToString(dr["Name"]),
+                        StartTime = Convert.ToDateTime(dr["StartTime"]),
+                        EndTime = Convert.ToDateTime(dr["EndTime"]),
+                        Location = Convert.ToString(dr["Location"])
                     }
-                    
-                    
                     );
-
-
             }
 
-            return stuList;
-
-
+            return list;
         }
 
-        public bool UpdateEmployee(studentModel obj)
+        public bool UpdateCourse(CourseModel obj)
         {
 
             connection();
-            SqlCommand com = new SqlCommand("UpdateEmpDetails", con);
-           
+            SqlCommand com = new SqlCommand($"Update Course set name = {obj.Name}, email = {obj.StartTime}, address = {obj.EndTime} where id= {obj.Location}", con);
+
             com.CommandType = CommandType.StoredProcedure;
-            //com.Parameters.AddWithValue("@StudentId", obj.Empid);
-            //com.Parameters.AddWithValue("@Name", obj.Name);
-            //com.Parameters.AddWithValue("@City", obj.City);
-            //com.Parameters.AddWithValue("@Address", obj.Address);
             con.Open();
             int i = com.ExecuteNonQuery();
             con.Close();
@@ -113,14 +101,13 @@ namespace CRUDUsingMVC.Repository
 
 
         }
-        public bool DeleteStudent(int Id)
+        public bool DeleteCourse(int Id)
         {
 
             connection();
-            SqlCommand com = new SqlCommand("DeleteEmpById", con);
+            SqlCommand com = new SqlCommand($"Delete from Course where id={Id}", con);
 
-            com.CommandType = CommandType.StoredProcedure;
-            com.Parameters.AddWithValue("@EmpId", Id);
+            com.CommandType = CommandType.Text;
            
             con.Open();
             int i = com.ExecuteNonQuery();

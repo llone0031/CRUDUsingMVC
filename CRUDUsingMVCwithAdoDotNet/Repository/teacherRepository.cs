@@ -5,8 +5,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
-using CRUDUsingMVC.Models;
-namespace CRUDUsingMVC.Repository
+using University.Models;
+namespace University.Repository
 {
     public class TeacherRepository
     {
@@ -43,7 +43,7 @@ namespace CRUDUsingMVC.Repository
             }
         }
 
-        public List<TeacherModel> GetAllTeacher()
+        public List<TeacherModel> GetAllTeachers()
         {
             connection();
             List<TeacherModel> list =new List<TeacherModel>();
@@ -76,13 +76,9 @@ namespace CRUDUsingMVC.Repository
         {
 
             connection();
-            SqlCommand com = new SqlCommand($"Update teacher set name = {obj.Name}, email = {obj.Email}, address = {obj.Address} where id= {obj.TeacherId}", con);
-           
+            SqlCommand com = new SqlCommand($"Update teacher set name = {obj.Name}, email = {obj.Email}, address = {obj.Address} where id= {obj.TeacherId}", con);          
             com.CommandType = CommandType.Text;
-            //com.Parameters.AddWithValue("@StudentId", obj.Empid);
-            //com.Parameters.AddWithValue("@Name", obj.Name);
-            //com.Parameters.AddWithValue("@City", obj.City);
-            //com.Parameters.AddWithValue("@Address", obj.Address);
+
             con.Open();
             int i = com.ExecuteNonQuery();
             con.Close();
