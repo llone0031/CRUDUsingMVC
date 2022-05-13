@@ -10,29 +10,29 @@ namespace University.Controllers
    
     public class TeacherController : Controller
     {
-      
-       
-        // GET: Employee/GetAllEmpDetails
-      
+
+
+        // GET: Teacher/GetAllTeacherDetails
+
         public ActionResult GetAllTeacherDetails()
         {
           
-            TeacherRepository tchRepo = new TeacherRepository();
+            TeacherRepository TeacherRepo = new TeacherRepository();
             ModelState.Clear();
-            return View(tchRepo.GetAllTeachers());
+            return View(TeacherRepo.GetAllTeachers());
         }
 
-        // POST: Employee/AddEmployee
+        // POST: Teacher/AddTeacher
         [HttpPost]
-        public ActionResult AddEmployee(TeacherModel tch)
+        public ActionResult AddTeacher(TeacherModel teacher)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    TeacherRepository EmpRepo = new TeacherRepository();
+                    TeacherRepository teacherRepo = new TeacherRepository();
 
-                    if (EmpRepo.AddTeacher(tch))
+                    if (teacherRepo.AddTeacher(teacher))
                     {
                         ViewBag.Message = "Teacher details added successfully";
                     }
@@ -46,32 +46,32 @@ namespace University.Controllers
             }
         }
 
-        // GET: Employee/EditEmpDetails/5
-        public ActionResult EditTchDetails(int id)
+        // GET: Teacher/EditTeacherDetails/5
+        public ActionResult EditTeacherDetails(int id)
         {
-            TeacherRepository tchRepo = new TeacherRepository();
+            TeacherRepository teacherRepo = new TeacherRepository();
 
           
 
-            return View(tchRepo.GetAllTeachers().Find(teacher => teacher.TeacherId == id));
+            return View(teacherRepo.GetAllTeachers().Find(teacher => teacher.TeacherId == id));
 
         }
 
-        // POST: Employee/EditEmpDetails/5
+        // POST: Teacher/EditTeacherDetails/5
         [HttpPost]
       
-        public ActionResult EditTchDetails(int id,TeacherModel obj)
+        public ActionResult EditTeacherDetails(int id,TeacherModel obj)
         {
             try
             {
-                TeacherRepository TchRepo = new TeacherRepository();
+                TeacherRepository teacherRepo = new TeacherRepository();
 
-                TchRepo.UpdateTeacher(obj);
+                teacherRepo.UpdateTeacher(obj);
                
 
 
 
-                return RedirectToAction("GetAllTeachers");
+                return RedirectToAction("GetAllTeacherDetails");
             }
             catch
             {
@@ -79,18 +79,18 @@ namespace University.Controllers
             }
         }
 
-        // GET: Employee/DeleteEmp/5
+        // GET:  Teacher/DeleteTeacher/5
         public ActionResult DeleteTeacher(int id)
         {
             try
             {
-                TeacherRepository EmpRepo = new TeacherRepository();
-                if (EmpRepo.DeleteTeacher(id))
+                TeacherRepository teacherRepo = new TeacherRepository();
+                if (teacherRepo.DeleteTeacher(id))
                 {
                     ViewBag.AlertMsg = "Teacher details deleted successfully";
 
                 }
-                return RedirectToAction("GetAllTeachers");
+                return RedirectToAction("GetAllTeacherDetails");
 
             }
             catch

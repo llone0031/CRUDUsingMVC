@@ -115,8 +115,8 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Student\AddEmployee.cshtml" />
-    <Content Include="Views\Student\GetAllEmpDetails.cshtml" />
+    <Content Include="Views\Student\AddStudent.cshtml" />
+    <Content Include="Views\Student\GetAllStudentDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -142,13 +142,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Views\Student\EditEmpDetails.cshtml" />
-    <Content Include="Views\Class\AddEmployee.cshtml" />
-    <Content Include="Views\Class\EditEmpDetails.cshtml" />
-    <Content Include="Views\Class\GetAllEmpDetails.cshtml" />
-    <Content Include="Views\Teacher\AddEmployee.cshtml" />
-    <Content Include="Views\Teacher\EditEmpDetails.cshtml" />
-    <Content Include="Views\Teacher\GetAllEmpDetails.cshtml" />
+    <Content Include="Views\Student\EditStudentDetails.cshtml" />
+    <Content Include="Views\Course\AddCourse.cshtml" />
+    <Content Include="Views\Course\EditCourseDetails.cshtml" />
+    <Content Include="Views\Course\GetAllCourseDetails.cshtml" />
+    <Content Include="Views\Teacher\AddTeacher.cshtml" />
+    <Content Include="Views\Teacher\EditTeacherDetails.cshtml" />
+    <Content Include="Views\Teacher\GetAllTeacherDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

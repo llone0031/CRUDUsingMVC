@@ -79,7 +79,7 @@ namespace University.Repository
 
         }
 
-        public bool UpdateEmployee(StudentModel obj)
+        public bool UpdateStudent(StudentModel obj)
         {
 
             connection();

@@ -11,13 +11,15 @@ namespace University.Models
         [Display(Name ="Id")]
       
         public int TeacherId { get; set; }
-        [Required(ErrorMessage ="Name is required.")]
-     
+        [Required(ErrorMessage = "Name is required.")]
+        [Display(Name = "Name")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Email is required.")]
+        [Display(Name = "Email")]
         public string Email { get; set; }
         [Required(ErrorMessage = "Address is required.")]
-        public string  Address { get; set; }
-       
+        [Display(Name = "Address")]
+        public string Address { get; set; }
+
     }
 }

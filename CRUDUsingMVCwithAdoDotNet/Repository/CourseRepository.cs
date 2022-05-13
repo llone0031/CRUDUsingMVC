@@ -22,7 +22,7 @@ namespace University.Repository
         {
 
             connection();
-            SqlCommand com = new SqlCommand($"insert into course values ({obj.Name}, {obj.StartTime}, {obj.EndTime}, {obj.Location})", con);
+            SqlCommand com = new SqlCommand($"insert into course values ({obj.Name}, {obj.CourseNumber}, {obj.StartTime}, {obj.EndTime}, {obj.Location})", con);
             com.CommandType = CommandType.Text;
             //com.Parameters.AddWithValue("@Name", obj.Name);
             //com.Parameters.AddWithValue("@City", obj.Email);
@@ -66,9 +66,10 @@ namespace University.Repository
                     new CourseModel
                     {
                         CourseId = Convert.ToInt32(dr["Id"]),
+                        CourseNumber = Convert.ToString(dr["CourseNumber"]),
                         Name = Convert.ToString(dr["Name"]),
-                        StartTime = Convert.ToDateTime(dr["StartTime"]),
-                        EndTime = Convert.ToDateTime(dr["EndTime"]),
+                        StartTime = Convert.ToString(dr["StartTime"]),
+                        EndTime = Convert.ToString(dr["EndTime"]),
                         Location = Convert.ToString(dr["Location"])
                     }
                     );

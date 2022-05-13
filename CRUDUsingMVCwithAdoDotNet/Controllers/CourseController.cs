@@ -11,7 +11,7 @@ namespace University.Controllers
     public class CourseController : Controller
     {
       
-        public ActionResult GetAllCourses()
+        public ActionResult GetAllCoursesDetails()
         {
           
             CourseRepository clsRepo = new CourseRepository();
@@ -20,23 +20,23 @@ namespace University.Controllers
         }
 
 
-        // GET: Employee/AddEmployee
+        // GET: Course/AddCourse
         public ActionResult AddCourse()
         {
             return View();
         }
 
-        // POST: Employee/AddEmployee
+        // POST: Course/AddCourse
         [HttpPost]
-        public ActionResult AddCourse(CourseModel Emp)
+        public ActionResult AddCourse(CourseModel course)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    CourseRepository EmpRepo = new CourseRepository();
+                    CourseRepository courseRepo = new CourseRepository();
 
-                    if (EmpRepo.AddCourse(Emp))
+                    if (courseRepo.AddCourse(course))
                     {
                         ViewBag.Message = "Course details added successfully";
                     }
@@ -50,7 +50,7 @@ namespace University.Controllers
             }
         }
 
-        // GET: Employee/EditEmpDetails/5
+        // GET: Course/EditcourseDetails/5
         public ActionResult EditCourseDetails(int id)
         {
             CourseRepository stuRepo = new CourseRepository();
@@ -61,18 +61,18 @@ namespace University.Controllers
 
         }
 
-        // POST: Employee/EditEmpDetails/5
+        // POST: Course/EditCourseDetails/5
         [HttpPost]
       
-        public ActionResult EditCourseDetails(int id,CourseModel obj)
+        public ActionResult EditCourseDetails(int id, CourseModel obj)
         {
             try
             {
-                    CourseRepository EmpRepo = new CourseRepository();
-                  
-                    EmpRepo.UpdateCourse(obj);              
+                CourseRepository CourseRepo = new CourseRepository();
 
-                return RedirectToAction("GetAllCourses");
+                CourseRepo.UpdateCourse(obj);              
+
+                return RedirectToAction("GetAllCoursesDetails");
             }
             catch
             {
@@ -80,18 +80,18 @@ namespace University.Controllers
             }
         }
 
-        // GET: Employee/DeleteEmp/5
+        // GET: Course/DeleteCourse/5
         public ActionResult DeleteCourse(int id)
         {
             try
             {
-                CourseRepository EmpRepo = new CourseRepository();
-                if (EmpRepo.DeleteCourse(id))
+                CourseRepository CourseRepo = new CourseRepository();
+                if (CourseRepo.DeleteCourse(id))
                 {
                     ViewBag.AlertMsg = "Course details deleted successfully";
 
                 }
-                return RedirectToAction("GetAllCourses");
+                return RedirectToAction("GetAllCoursesDetails");
 
             }
             catch
