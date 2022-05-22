@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
+using System.Data.SQLite;
 using System.Linq;
 using System.Web;
 using University.Models;
@@ -10,27 +10,23 @@ namespace University.Repository
 {
     public class StudentRepository
     {
-        private SqlConnection con;
+        private SQLiteConnection con;
         private void connection()
         {
-            string constr = ConfigurationManager.ConnectionStrings["getconn"].ToString();
-            con = new SqlConnection(constr);
-
+            var connectionStringBuilder = new SQLiteConnectionStringBuilder();
+            connectionStringBuilder.DataSource = "C:\\Users\\llone\\OneDrive\\Desktop\\project_Jiazhen\\CRUDUsingMVCwithAdoDotNet\\University.db";
+            con = new SQLiteConnection(connectionStringBuilder.ConnectionString);
         }
 
         public bool AddStudent(StudentModel obj)
         {
 
             connection();
-            SqlCommand com = new SqlCommand($"insert into student values ({obj.Name}, {obj.Email}, {obj.Address})", con);
-            com.CommandType = CommandType.Text;
-            //com.CommandType = CommandType.StoredProcedure;
-            //com.Parameters.AddWithValue("@Name", obj.Name);
-            //com.Parameters.AddWithValue("@City", obj.Email);
-            //com.Parameters.AddWithValue("@Address", obj.Address);
+            var cmd = con.CreateCommand();
+            cmd.CommandText = $"insert into student values ({obj.Name}, {obj.Email}, {obj.Address})";
 
             con.Open();
-            int i = com.ExecuteNonQuery();
+            int i = cmd.ExecuteNonQuery();
             con.Close();
             if (i >= 1)
             {
@@ -52,10 +48,10 @@ namespace University.Repository
             connection();
             List<StudentModel> list =new List<StudentModel>();
 
+            var cmd = con.CreateCommand();
+            cmd.CommandText = $"select * from student";
 
-            SqlCommand com = new SqlCommand("select * from student", con);
-            com.CommandType = CommandType.Text;
-            SqlDataAdapter da = new SqlDataAdapter(com);
+            SQLiteDataAdapter da = new SQLiteDataAdapter(cmd);
             DataTable dt = new DataTable();
 
             con.Open();
@@ -83,40 +79,30 @@ namespace University.Repository
         {
 
             connection();
-            SqlCommand com = new SqlCommand($"Update student set name = {obj.Name}, email = {obj.Email}, address = {obj.Address} where id= {obj.StudentId}", con);
+            var cmd = con.CreateCommand();
+            cmd.CommandText = $"Update student set name = {obj.Name}, email = {obj.Email}, address = {obj.Address} where id= {obj.StudentId}";
 
-            com.CommandType = CommandType.StoredProcedure;
-            //com.Parameters.AddWithValue("@StudentId", obj.Empid);
-            //com.Parameters.AddWithValue("@Name", obj.Name);
-            //com.Parameters.AddWithValue("@City", obj.City);
-            //com.Parameters.AddWithValue("@Address", obj.Address);
             con.Open();
-            int i = com.ExecuteNonQuery();
+            int i = cmd.ExecuteNonQuery();
             con.Close();
             if (i >= 1)
             {
-                
                 return true;
-
             }
             else
             {
-
                 return false;
             }
-
-
         }
         public bool DeleteStudent(int Id)
         {
 
             connection();
-            SqlCommand com = new SqlCommand($"Delete from student where id={Id}", con);
+            var cmd = con.CreateCommand();
+            cmd.CommandText = $"Delete from Student where id={Id}";
 
-            com.CommandType = CommandType.Text;
-           
             con.Open();
-            int i = com.ExecuteNonQuery();
+            int i = cmd.ExecuteNonQuery();
             con.Close();
             if (i >= 1)
             {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
+using System.Data.SQLite;
 using System.Linq;
 using System.Web;
 using University.Models;
@@ -10,11 +10,13 @@ namespace University.Repository
 {
     public class CourseRepository
     {
-        private SqlConnection con;
+
+        private SQLiteConnection con;
         private void connection()
         {
-            string constr = ConfigurationManager.ConnectionStrings["getconn"].ToString();
-            con = new SqlConnection(constr);
+            var connectionStringBuilder = new SQLiteConnectionStringBuilder();
+            connectionStringBuilder.DataSource = "C:\\Users\\llone\\OneDrive\\Desktop\\project_Jiazhen\\CRUDUsingMVCwithAdoDotNet\\University.db";
+            con = new SQLiteConnection(connectionStringBuilder.ConnectionString);
 
         }
 
@@ -22,14 +24,11 @@ namespace University.Repository
         {
 
             connection();
-            SqlCommand com = new SqlCommand($"insert into course values ({obj.Name}, {obj.CourseNumber}, {obj.StartTime}, {obj.EndTime}, {obj.Location})", con);
-            com.CommandType = CommandType.Text;
-            //com.Parameters.AddWithValue("@Name", obj.Name);
-            //com.Parameters.AddWithValue("@City", obj.Email);
-            //com.Parameters.AddWithValue("@Address", obj.Address);
-          
+            var cmd = con.CreateCommand();
+            cmd.CommandText = $"insert into course values({ obj.Name}, { obj.CourseNumber}, { obj.StartTime}, { obj.EndTime}, { obj.Location})";
+      
             con.Open();
-            int i = com.ExecuteNonQuery();
+            int i = cmd.ExecuteNonQuery();
             con.Close();
             if (i >= 1)
             {
@@ -50,11 +49,10 @@ namespace University.Repository
         {
             connection();
             List<CourseModel> list = new List<CourseModel>();
+            var cmd = con.CreateCommand();
+            cmd.CommandText = $"select * from course";
 
-
-            SqlCommand com = new SqlCommand("select * from course", con);
-            com.CommandType = CommandType.Text;
-            SqlDataAdapter da = new SqlDataAdapter(com);
+            SQLiteDataAdapter da = new SQLiteDataAdapter(cmd);
             DataTable dt = new DataTable();
 
             con.Open();
@@ -82,11 +80,11 @@ namespace University.Repository
         {
 
             connection();
-            SqlCommand com = new SqlCommand($"Update Course set name = {obj.Name}, email = {obj.StartTime}, address = {obj.EndTime} where id= {obj.Location}", con);
+            var cmd = con.CreateCommand();
+            cmd.CommandText = $"Update Course set name = {obj.Name}, email = {obj.StartTime}, address = {obj.EndTime} where id= {obj.Location}";
 
-            com.CommandType = CommandType.StoredProcedure;
             con.Open();
-            int i = com.ExecuteNonQuery();
+            int i = cmd.ExecuteNonQuery();
             con.Close();
             if (i >= 1)
             {
@@ -106,12 +104,11 @@ namespace University.Repository
         {
 
             connection();
-            SqlCommand com = new SqlCommand($"Delete from Course where id={Id}", con);
-
-            com.CommandType = CommandType.Text;
+            var cmd = con.CreateCommand();
+            cmd.CommandText = $"Delete from Course where id={Id}";
            
             con.Open();
-            int i = com.ExecuteNonQuery();
+            int i = cmd.ExecuteNonQuery();
             con.Close();
             if (i >= 1)
             {

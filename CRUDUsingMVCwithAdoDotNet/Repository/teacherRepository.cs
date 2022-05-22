@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
+using System.Data.SQLite;
 using System.Linq;
 using System.Web;
 using University.Models;
@@ -10,11 +10,12 @@ namespace University.Repository
 {
     public class TeacherRepository
     {
-        private SqlConnection con;
+        private SQLiteConnection con;
         private void connection()
         {
-            string constr = ConfigurationManager.ConnectionStrings["getconn"].ToString();
-            con = new SqlConnection(constr);
+            var connectionStringBuilder = new SQLiteConnectionStringBuilder();
+            connectionStringBuilder.DataSource = "C:\\Users\\llone\\OneDrive\\Desktop\\project_Jiazhen\\CRUDUsingMVCwithAdoDotNet\\University.db";
+            con = new SQLiteConnection(connectionStringBuilder.ConnectionString);
 
         }
 
@@ -23,11 +24,11 @@ namespace University.Repository
         {
 
             connection();
-            SqlCommand com = new SqlCommand($"insert into student values ({obj.Name}, {obj.Email}, {obj.Address})", con);
-            com.CommandType = CommandType.Text;
+            var cmd = con.CreateCommand();
+            cmd.CommandText = $"insert into teacher values ({obj.Name}, {obj.Email}, {obj.Address})";
 
             con.Open();
-            int i = com.ExecuteNonQuery();
+            int i = cmd.ExecuteNonQuery();
             con.Close();
             if (i >= 1)
             {
@@ -43,13 +44,14 @@ namespace University.Repository
         {
             connection();
             List<TeacherModel> list =new List<TeacherModel>();
-           
 
-            SqlCommand com = new SqlCommand("select * from teacher", con);
-            com.CommandType = CommandType.Text;
-            SqlDataAdapter da = new SqlDataAdapter(com);
+
+            var cmd = con.CreateCommand();
+            cmd.CommandText = $"select * from teacher";
+
+            SQLiteDataAdapter da = new SQLiteDataAdapter(cmd);
             DataTable dt = new DataTable();
-          
+
             con.Open();
             da.Fill(dt);
             con.Close();
@@ -72,11 +74,11 @@ namespace University.Repository
         {
 
             connection();
-            SqlCommand com = new SqlCommand($"Update teacher set name = {obj.Name}, email = {obj.Email}, address = {obj.Address} where id= {obj.TeacherId}", con);          
-            com.CommandType = CommandType.Text;
+            var cmd = con.CreateCommand();
+            cmd.CommandText = $"Update student set name = {obj.Name}, email = {obj.Email}, address = {obj.Address} where id= {obj.TeacherId}";
 
             con.Open();
-            int i = com.ExecuteNonQuery();
+            int i = cmd.ExecuteNonQuery();
             con.Close();
             if (i >= 1)
             {       
@@ -93,11 +95,11 @@ namespace University.Repository
         {
 
             connection();
-            SqlCommand com = new SqlCommand($"Delete from teacher where id={Id}", con);
-            com.CommandType = CommandType.Text;
-           
+            var cmd = con.CreateCommand();
+            cmd.CommandText = $"Delete from Teacher where id={Id}";
+
             con.Open();
-            int i = com.ExecuteNonQuery();
+            int i = cmd.ExecuteNonQuery();
             con.Close();
             if (i >= 1)
             {              
