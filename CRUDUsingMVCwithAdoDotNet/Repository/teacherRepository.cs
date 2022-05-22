@@ -25,10 +25,6 @@ namespace University.Repository
             connection();
             SqlCommand com = new SqlCommand($"insert into student values ({obj.Name}, {obj.Email}, {obj.Address})", con);
             com.CommandType = CommandType.Text;
-            //com.CommandType = CommandType.StoredProcedure;
-            //com.Parameters.AddWithValue("@Name", obj.Name);
-            //com.Parameters.AddWithValue("@City", obj.Email);
-            //com.Parameters.AddWithValue("@Address", obj.Address);
 
             con.Open();
             int i = com.ExecuteNonQuery();
@@ -104,14 +100,11 @@ namespace University.Repository
             int i = com.ExecuteNonQuery();
             con.Close();
             if (i >= 1)
-            {
-               
+            {              
                 return true;
-
             }
             else
             {
-
                 return false;
             }
 
